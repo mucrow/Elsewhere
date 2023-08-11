@@ -7,7 +7,7 @@ namespace Elsewhere {
   public class Player: MonoBehaviour {
     [SerializeField] float _moveSpeed = 6f;
     [SerializeField] float _moveAcceleration = 30f;
-    [SerializeField] float _rotateSpeed = 360f;
+    [SerializeField] float _rotateSpeed = 540f;
 
     Vector2 _moveInput;
     bool _interactInput;
