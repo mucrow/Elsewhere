@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,25 +19,28 @@ namespace Elsewhere {
     }
 
     void Update() {
-      var localEulerAngles = transform.localEulerAngles;
-
       _moveInput = GetMoveInput();
       _interactInput = Input.GetKeyDown(KeyCode.Z);
       _actionInput = Input.GetKeyDown(KeyCode.X);
       _menuInput = Input.GetKeyDown(KeyCode.C);
+    }
 
+    void FixedUpdate() {
       if (_moveInput.magnitude < 0.1f) {
         _rigidbody.velocity = Vector3.zero;
       }
       else {
-        var newY = Vector3.RotateTowards(transform.localRotation * Vector3.forward, new Vector3(_moveInput.x, 0f, _moveInput.y), _rotateSpeed * Mathf.Deg2Rad, Mathf.Infinity);
-        _rigidbody.MoveRotation(Quaternion.Euler(0f, Vector3.SignedAngle(Vector3.forward, newY, Vector3.up), 0f));
-        // if (0f < 5f) {
-        _rigidbody.velocity = Quaternion.Euler(localEulerAngles) * Vector3.forward * _moveSpeed;
-        // }
-        // else {
-        //   _rigidbody.velocity = Vector3.zero;
-        // }
+        var localRotation = transform.localRotation;
+        var moveInputQuaternion = Quaternion.LookRotation(new Vector3(_moveInput.x, 0f, _moveInput.y), Vector3.up);
+        var newRotation = Quaternion.RotateTowards(localRotation, moveInputQuaternion, _rotateSpeed * Time.fixedDeltaTime);
+        _rigidbody.MoveRotation(newRotation);
+
+        if (Quaternion.Angle(newRotation, moveInputQuaternion) < 0.5f) {
+          _rigidbody.velocity = newRotation * Vector3.forward * _moveSpeed;
+        }
+        else {
+          _rigidbody.velocity = Vector3.zero;
+        }
       }
     }
 
