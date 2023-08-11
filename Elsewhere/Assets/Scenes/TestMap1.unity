@@ -571,6 +571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 6
+  _moveAcceleration: 30
   _rotateSpeed: 360
 --- !u!54 &1304853907
 Rigidbody:

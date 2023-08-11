@@ -6,6 +6,7 @@ using UnityEngine;
 namespace Elsewhere {
   public class Player: MonoBehaviour {
     [SerializeField] float _moveSpeed = 6f;
+    [SerializeField] float _moveAcceleration = 30f;
     [SerializeField] float _rotateSpeed = 360f;
 
     Vector2 _moveInput;
@@ -26,8 +27,10 @@ namespace Elsewhere {
     }
 
     void FixedUpdate() {
+      float dt = Time.fixedDeltaTime;
+
       if (_moveInput.magnitude < 0.1f) {
-        _rigidbody.velocity = Vector3.zero;
+        UpdateRigidbodyVelocity(dt, Vector3.zero);
       }
       else {
         var localRotation = transform.localRotation;
@@ -36,12 +39,18 @@ namespace Elsewhere {
         _rigidbody.MoveRotation(newRotation);
 
         if (Quaternion.Angle(newRotation, moveInputQuaternion) < 0.5f) {
-          _rigidbody.velocity = newRotation * Vector3.forward * _moveSpeed;
+          var targetVelocity = newRotation * Vector3.forward * _moveSpeed;
+          UpdateRigidbodyVelocity(dt, targetVelocity);
         }
         else {
-          _rigidbody.velocity = Vector3.zero;
+          UpdateRigidbodyVelocity(dt, Vector3.zero);
         }
       }
+    }
+
+    void UpdateRigidbodyVelocity(float dt, Vector3 targetVelocity) {
+      var currentVelocity = _rigidbody.velocity;
+      _rigidbody.velocity = Vector3.MoveTowards(currentVelocity, targetVelocity, _moveAcceleration * dt);
     }
 
     Vector2 GetMoveInput() {
