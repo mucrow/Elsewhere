@@ -29,7 +29,7 @@ namespace Elsewhere {
         _rigidbody.velocity = Vector3.zero;
       }
       else {
-        var newY = Vector3.RotateTowards(transform.localRotation * Vector3.forward, new Vector3(moveInput.x, 0f, moveInput.y), _rotateSpeed * Mathf.Deg2Rad, Mathf.Infinity);
+        var newY = Vector3.RotateTowards(transform.localRotation * Vector3.forward, new Vector3(_moveInput.x, 0f, _moveInput.y), _rotateSpeed * Mathf.Deg2Rad, Mathf.Infinity);
         _rigidbody.MoveRotation(Quaternion.Euler(0f, Vector3.SignedAngle(Vector3.forward, newY, Vector3.up), 0f));
         // if (0f < 5f) {
         _rigidbody.velocity = Quaternion.Euler(localEulerAngles) * Vector3.forward * _moveSpeed;
