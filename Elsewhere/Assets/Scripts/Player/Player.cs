@@ -53,8 +53,18 @@ namespace Elsewhere.Player {
     }
 
     void UpdateRigidbodyVelocity(float dt, Vector3 targetVelocity) {
-      var currentVelocity = _rigidbody.velocity;
-      _rigidbody.velocity = Vector3.MoveTowards(currentVelocity, targetVelocity, _moveAcceleration * dt);
+      if (targetVelocity.y != 0f) {
+        Debug.LogWarning("targetVelocity with Y-component not yet supported");
+        targetVelocity.y = 0f;
+      }
+
+      var previousLateralVelocity = _rigidbody.velocity;
+      previousLateralVelocity.y = 0f;
+
+      var newVelocity = Vector3.MoveTowards(previousLateralVelocity, targetVelocity, _moveAcceleration * dt);
+      newVelocity.y = _rigidbody.velocity.y;
+
+      _rigidbody.velocity = newVelocity;
     }
   }
 }
