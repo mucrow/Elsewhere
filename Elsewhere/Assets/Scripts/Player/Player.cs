@@ -7,20 +7,26 @@ namespace Elsewhere.Player {
     [SerializeField] float _rotateSpeed = 540f;
 
     Input _input;
+    Interactor _interactor;
     Rigidbody _rigidbody;
 
     void Awake() {
       _input = GetComponent<Input>();
+      _interactor = GetComponentInChildren<Interactor>();
       _rigidbody = GetComponent<Rigidbody>();
     }
 
     void Update() {
       _input.Poll();
+      HandleInteractInput();
     }
 
     void FixedUpdate() {
       float dt = Time.fixedDeltaTime;
+      HandleMoveInput(dt);
+    }
 
+    void HandleMoveInput(float dt) {
       if (_input.Move.magnitude < 0.1f) {
         UpdateRigidbodyVelocity(dt, Vector3.zero);
       }
@@ -37,6 +43,12 @@ namespace Elsewhere.Player {
         else {
           UpdateRigidbodyVelocity(dt, Vector3.zero);
         }
+      }
+    }
+
+    void HandleInteractInput() {
+      if (_input.Interact) {
+        _interactor.Interact();
       }
     }
 

@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace Elsewhere {
   public class Interactable: MonoBehaviour {
-    [SerializeField] UnityEvent _onInteract;
+    public UnityEvent OnInteract;
     [SerializeField] SpriteRenderer _interactCue;
 
     readonly List<Collider> _interactors = new List<Collider>();
