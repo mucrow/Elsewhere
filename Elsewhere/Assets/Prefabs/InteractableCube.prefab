@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5056388476779856442}
   - component: {fileID: 982221134724081887}
+  - component: {fileID: 2302397635027589471}
   - component: {fileID: 1953130421742763726}
   - component: {fileID: 4232094533967607510}
   - component: {fileID: 1556672011097898625}
@@ -48,7 +49,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae93373ae4b98db4bbbd28039f381413, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _onInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2302397635027589471}
+        m_TargetAssemblyTypeName: Elsewhere.DebugPrint, Assembly-CSharp
+        m_MethodName: Print
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Player interacted with cube.
+          m_BoolArgument: 0
+        m_CallState: 2
   _interactCue: {fileID: 7602281893124926014}
+--- !u!114 &2302397635027589471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2807697713650122503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39939aad2745435390cd51dc9289471b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &1953130421742763726
 MeshFilter:
   m_ObjectHideFlags: 0

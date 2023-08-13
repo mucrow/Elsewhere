@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Elsewhere {
   public class Interactable: MonoBehaviour {
+    [SerializeField] UnityEvent _onInteract;
     [SerializeField] SpriteRenderer _interactCue;
 
-    List<Collider> _interactors = new List<Collider>();
+    readonly List<Collider> _interactors = new List<Collider>();
 
     void Start() {
       UpdateInteractCue();
