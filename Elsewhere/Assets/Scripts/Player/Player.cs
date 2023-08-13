@@ -6,39 +6,41 @@ namespace Elsewhere.Player {
     [SerializeField] float _moveAcceleration = 30f;
     [SerializeField] float _rotateSpeed = 540f;
 
+    CharacterController _characterController;
     Input _input;
     Interactor _interactor;
     Rigidbody _rigidbody;
 
     void Awake() {
+      _characterController = GetComponent<CharacterController>();
       _input = GetComponent<Input>();
       _interactor = GetComponentInChildren<Interactor>();
       _rigidbody = GetComponent<Rigidbody>();
     }
 
     void Update() {
+      float dt = Time.deltaTime;
       _input.Poll();
       HandleInteractInput();
+      HandleMoveInput(dt);
     }
 
-    void FixedUpdate() {
-      float dt = Time.fixedDeltaTime;
-
+    void HandleMoveInput(float dt) {
       if (_input.Move.magnitude < 0.1f) {
-        UpdateRigidbodyVelocity(dt, Vector3.zero);
+        _characterController.SimpleMove(Vector3.zero);
       }
       else {
         var localRotation = transform.localRotation;
         var moveInputQuaternion = Quaternion.LookRotation(new Vector3(_input.Move.x, 0f, _input.Move.y), Vector3.up);
         var newRotation = Quaternion.RotateTowards(localRotation, moveInputQuaternion, _rotateSpeed * Time.fixedDeltaTime);
-        _rigidbody.MoveRotation(newRotation);
+        transform.localRotation = newRotation;
 
         if (Quaternion.Angle(newRotation, moveInputQuaternion) < 0.5f) {
           var targetVelocity = newRotation * Vector3.forward * _moveSpeed;
-          UpdateRigidbodyVelocity(dt, targetVelocity);
+          _characterController.SimpleMove(targetVelocity);
         }
         else {
-          UpdateRigidbodyVelocity(dt, Vector3.zero);
+          _characterController.SimpleMove(Vector3.zero);
         }
       }
     }
