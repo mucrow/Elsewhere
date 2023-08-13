@@ -23,10 +23,7 @@ namespace Elsewhere.Player {
 
     void FixedUpdate() {
       float dt = Time.fixedDeltaTime;
-      HandleMoveInput(dt);
-    }
 
-    void HandleMoveInput(float dt) {
       if (_input.Move.magnitude < 0.1f) {
         UpdateRigidbodyVelocity(dt, Vector3.zero);
       }
@@ -62,9 +59,29 @@ namespace Elsewhere.Player {
       previousLateralVelocity.y = 0f;
 
       var newVelocity = Vector3.MoveTowards(previousLateralVelocity, targetVelocity, _moveAcceleration * dt);
-      newVelocity.y = _rigidbody.velocity.y;
+      newVelocity.y = _rigidbody.velocity.y + Physics.gravity.y * dt;
 
+      // _rigidbody.velocity = AdjustVelocityToSlope(newVelocity);
+      // Debug.DrawRay(transform.position, newVelocity, Color.red);
+      // Debug.DrawRay(transform.position, nunu, Color.blue);
+
+      // _rigidbody.velocity = AdjustVelocityToSlope(newVelocity);
       _rigidbody.velocity = newVelocity;
+    }
+
+    Vector3 AdjustVelocityToSlope(Vector3 velocity) {
+      var ray = new Ray(transform.position, Vector3.down);
+      if (Physics.Raycast(ray, out RaycastHit hit, 0.2f)) {
+        var slopeRotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+        if (slopeRotation.eulerAngles != Vector3.zero) {
+          Debug.Log(slopeRotation.eulerAngles);
+        }
+        var adjustedVelocity = slopeRotation * velocity;
+        if (adjustedVelocity.y != 0f) {
+          return adjustedVelocity;
+        }
+      }
+      return velocity;
     }
   }
 }
