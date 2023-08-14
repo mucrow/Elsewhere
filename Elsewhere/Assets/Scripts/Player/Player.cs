@@ -58,27 +58,8 @@ namespace Elsewhere.Player {
         targetVelocity.y = 0f;
       }
       _velocity = Vector3.MoveTowards(_velocity, targetVelocity, _moveAcceleration * dt);
+      // _characterController.SimpleMove(AdjustVelocityToSlope(_velocity));
       _characterController.SimpleMove(_velocity);
-    }
-
-    void UpdateRigidbodyVelocity(float dt, Vector3 targetVelocity) {
-      if (targetVelocity.y != 0f) {
-        Debug.LogWarning("targetVelocity with Y-component not yet supported");
-        targetVelocity.y = 0f;
-      }
-
-      var previousLateralVelocity = _rigidbody.velocity;
-      previousLateralVelocity.y = 0f;
-
-      var newVelocity = Vector3.MoveTowards(previousLateralVelocity, targetVelocity, _moveAcceleration * dt);
-      newVelocity.y = _rigidbody.velocity.y + Physics.gravity.y * dt;
-
-      // _rigidbody.velocity = AdjustVelocityToSlope(newVelocity);
-      // Debug.DrawRay(transform.position, newVelocity, Color.red);
-      // Debug.DrawRay(transform.position, nunu, Color.blue);
-
-      // _rigidbody.velocity = AdjustVelocityToSlope(newVelocity);
-      _rigidbody.velocity = newVelocity;
     }
 
     Vector3 AdjustVelocityToSlope(Vector3 velocity) {
@@ -89,7 +70,7 @@ namespace Elsewhere.Player {
           Debug.Log(slopeRotation.eulerAngles);
         }
         var adjustedVelocity = slopeRotation * velocity;
-        if (adjustedVelocity.y != 0f) {
+        if (adjustedVelocity.y < 0f) {
           return adjustedVelocity;
         }
       }
