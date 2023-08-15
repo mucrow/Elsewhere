@@ -10,7 +10,8 @@ namespace Elsewhere.Player {
     Input _input;
     Interactor _interactor;
     Rigidbody _rigidbody;
-    Vector3 _velocity;
+    Vector3 _moveVelocity;
+    float _fallSpeed = 0f;
 
     void Awake() {
       _characterController = GetComponent<CharacterController>();
@@ -24,6 +25,7 @@ namespace Elsewhere.Player {
       _input.Poll();
       HandleInteractInput();
       HandleMoveInput(dt);
+      DebugSlopeDescendVelocity();
     }
 
     void HandleMoveInput(float dt) {
@@ -57,24 +59,45 @@ namespace Elsewhere.Player {
         Debug.LogWarning("targetVelocity with Y-component not yet supported");
         targetVelocity.y = 0f;
       }
-      _velocity = Vector3.MoveTowards(_velocity, targetVelocity, _moveAcceleration * dt);
-      // _characterController.SimpleMove(AdjustVelocityToSlope(_velocity));
-      _characterController.SimpleMove(_velocity);
+
+      var ray = new Ray(transform.position, Vector3.down);
+      if (Physics.Raycast(ray, out RaycastHit hit, 0.2f) && hit.distance <= 0.001f) {
+        _fallSpeed = 0f;
+      }
+      else {
+        _fallSpeed += Physics.gravity.y * dt;
+      }
+
+      _moveVelocity = Vector3.MoveTowards(_moveVelocity, targetVelocity, _moveAcceleration * dt);
+      var motion = AdjustVelocityToSlope(_moveVelocity * dt);
+      motion.y += _fallSpeed;
+      _characterController.Move(motion);
     }
 
     Vector3 AdjustVelocityToSlope(Vector3 velocity) {
       var ray = new Ray(transform.position, Vector3.down);
       if (Physics.Raycast(ray, out RaycastHit hit, 0.2f)) {
         var slopeRotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
-        if (slopeRotation.eulerAngles != Vector3.zero) {
-          Debug.Log(slopeRotation.eulerAngles);
-        }
         var adjustedVelocity = slopeRotation * velocity;
         if (adjustedVelocity.y < 0f) {
           return adjustedVelocity;
         }
       }
       return velocity;
+    }
+
+    void DebugSlopeDescendVelocity() {
+      var forwardVector = transform.forward;
+      var debugRayStartPosition = transform.position + Vector3.up + (forwardVector * 0.5f);
+      var ray = new Ray(transform.position, Vector3.down);
+      if (Physics.Raycast(ray, out RaycastHit hit, 0.2f)) {
+        var slopeRotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+        var adjustedVelocity = slopeRotation * forwardVector;
+        if (adjustedVelocity.y < 0f) {
+          Debug.DrawRay(debugRayStartPosition, adjustedVelocity * 3f, Color.red);
+        }
+      }
+      Debug.DrawRay(debugRayStartPosition, forwardVector * 3f, Color.red);
     }
   }
 }
