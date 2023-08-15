@@ -2548,22 +2548,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 158735189577695281, guid: 3798503282e3a4641bf15e6717a63fcf, type: 3}
-      propertyPath: m_Height
-      value: 1.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 158735189577695281, guid: 3798503282e3a4641bf15e6717a63fcf, type: 3}
-      propertyPath: m_SkinWidth
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 1478853976373721798, guid: 3798503282e3a4641bf15e6717a63fcf, type: 3}
-      propertyPath: _moveSpeed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1478853976373721798, guid: 3798503282e3a4641bf15e6717a63fcf, type: 3}
-      propertyPath: _rotateSpeed
-      value: 360
-      objectReference: {fileID: 0}
     - target: {fileID: 3763409392685249110, guid: 3798503282e3a4641bf15e6717a63fcf, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.334
