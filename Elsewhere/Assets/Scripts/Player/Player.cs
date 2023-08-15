@@ -60,8 +60,10 @@ namespace Elsewhere.Player {
         targetVelocity.y = 0f;
       }
 
-      var ray = new Ray(transform.position, Vector3.down);
-      if (Physics.Raycast(ray, out RaycastHit hit, 0.2f) && hit.distance <= 0.001f) {
+      float skinWidth = _characterController.skinWidth;
+      var ray = new Ray(transform.position + Vector3.up * skinWidth, Vector3.down * (skinWidth + 0.001f));
+      if (Physics.Raycast(ray, out RaycastHit hit, 0.2f)) {
+        transform.position = hit.point;
         _fallSpeed = 0f;
       }
       else {
@@ -70,17 +72,19 @@ namespace Elsewhere.Player {
 
       _moveVelocity = Vector3.MoveTowards(_moveVelocity, targetVelocity, _moveAcceleration * dt);
       var motion = AdjustVelocityToSlope(_moveVelocity * dt);
-      motion.y += _fallSpeed;
+      motion.y += _fallSpeed * dt;
       _characterController.Move(motion);
     }
 
     Vector3 AdjustVelocityToSlope(Vector3 velocity) {
-      var ray = new Ray(transform.position, Vector3.down);
-      if (Physics.Raycast(ray, out RaycastHit hit, 0.2f)) {
-        var slopeRotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
-        var adjustedVelocity = slopeRotation * velocity;
-        if (adjustedVelocity.y < 0f) {
-          return adjustedVelocity;
+      for (int i = -2; i <= 2; ++i) {
+        var ray = new Ray(transform.position + transform.forward * i * 0.25f, Vector3.down);
+        if (Physics.Raycast(ray, out RaycastHit hit, 0.2f)) {
+          var slopeRotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+          var adjustedVelocity = slopeRotation * velocity;
+          if (adjustedVelocity.y < 0f) {
+            return adjustedVelocity;
+          }
         }
       }
       return velocity;
