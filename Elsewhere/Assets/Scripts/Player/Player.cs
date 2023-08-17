@@ -9,15 +9,13 @@ namespace Elsewhere.Player {
     CharacterController _characterController;
     Input _input;
     Interactor _interactor;
-    Rigidbody _rigidbody;
     Vector3 _moveVelocity;
     float _fallSpeed = 0f;
 
-    void Awake() {
+    public void OnGlobalsAwake() {
       _characterController = GetComponent<CharacterController>();
       _input = GetComponent<Input>();
       _interactor = GetComponentInChildren<Interactor>();
-      _rigidbody = GetComponent<Rigidbody>();
     }
 
     void Update() {
@@ -25,7 +23,6 @@ namespace Elsewhere.Player {
       _input.Poll();
       HandleInteractInput();
       HandleMoveInput(dt);
-      DebugSlopeDescendVelocity();
     }
 
     void HandleMoveInput(float dt) {
@@ -88,20 +85,6 @@ namespace Elsewhere.Player {
         }
       }
       return velocity;
-    }
-
-    void DebugSlopeDescendVelocity() {
-      var forwardVector = transform.forward;
-      var debugRayStartPosition = transform.position + Vector3.up + (forwardVector * 0.5f);
-      var ray = new Ray(transform.position, Vector3.down);
-      if (Physics.Raycast(ray, out RaycastHit hit, 0.2f)) {
-        var slopeRotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
-        var adjustedVelocity = slopeRotation * forwardVector;
-        if (adjustedVelocity.y < 0f) {
-          Debug.DrawRay(debugRayStartPosition, adjustedVelocity * 3f, Color.red);
-        }
-      }
-      Debug.DrawRay(debugRayStartPosition, forwardVector * 3f, Color.red);
     }
   }
 }
