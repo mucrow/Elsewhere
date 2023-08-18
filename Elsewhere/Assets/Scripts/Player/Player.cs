@@ -74,8 +74,13 @@ namespace Elsewhere.Player {
     }
 
     Vector3 AdjustVelocityToSlope(Vector3 velocity) {
-      for (int i = -2; i <= 2; ++i) {
-        var ray = new Ray(transform.position + transform.forward * i * 0.25f, Vector3.down);
+      var position = transform.position;
+      var playerForwardRadius = transform.forward * _characterController.radius;
+      for (int i = -1; i <= 1; ++i) {
+        // this loop raycasts downward from just behind the player's feet, then downward from the
+        // player's bottom-center, then downward from directly in front of the player's feet.
+        var zOffset = playerForwardRadius * i;
+        var ray = new Ray(position + zOffset, Vector3.down);
         if (Physics.Raycast(ray, out RaycastHit hit, 0.2f)) {
           var slopeRotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
           var adjustedVelocity = slopeRotation * velocity;

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Elsewhere {
   public class Rotate: MonoBehaviour {
