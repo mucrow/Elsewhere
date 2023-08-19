@@ -7,31 +7,31 @@ namespace Elsewhere {
     [SerializeField] float _rotateSpeed = 540f;
 
     CharacterController _characterController;
-    Input _input;
     Interactor _interactor;
     Vector3 _moveVelocity;
     float _fallSpeed = 0f;
 
     public void OnGlobalsAwake() {
       _characterController = GetComponent<CharacterController>();
-      _input = GetComponent<Input>();
       _interactor = GetComponentInChildren<Interactor>();
     }
 
     void Update() {
       float dt = Time.deltaTime;
-      _input.Poll();
+      Globals.Input.Poll();
       HandleInteractInput();
       HandleMoveInput(dt);
     }
 
     void HandleMoveInput(float dt) {
-      if (_input.Move.magnitude < 0.1f) {
+      var moveInput = Globals.Input.Move;
+
+      if (moveInput.magnitude < 0.1f) {
         UpdateCharacterControllerVelocity(dt, Vector3.zero);
       }
       else {
         var localRotation = transform.localRotation;
-        var moveInputQuaternion = Quaternion.LookRotation(new Vector3(_input.Move.x, 0f, _input.Move.y), Vector3.up);
+        var moveInputQuaternion = Quaternion.LookRotation(new Vector3(moveInput.x, 0f, moveInput.y), Vector3.up);
         var newRotation = Quaternion.RotateTowards(localRotation, moveInputQuaternion, _rotateSpeed * dt);
         transform.localRotation = newRotation;
 
@@ -46,7 +46,7 @@ namespace Elsewhere {
     }
 
     void HandleInteractInput() {
-      if (_input.Interact) {
+      if (Globals.Input.Interact) {
         _interactor.Interact();
       }
     }

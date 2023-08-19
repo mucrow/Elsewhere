@@ -4,6 +4,7 @@ namespace Elsewhere {
   public class Globals: MonoBehaviour {
     // These static fields are always set by the time Start() is called.
     public static EWCamera Camera;
+    public static Input Input;
     public static Player Player;
     public static UI UI;
 
@@ -12,6 +13,7 @@ namespace Elsewhere {
     [SerializeField] GameObject _eventSystemPrefab;
 
     EWCamera _camera;
+    Input _input;
     Player _player;
     UI _ui;
 
@@ -43,12 +45,14 @@ namespace Elsewhere {
 
     void FindChildren() {
       _camera = GetComponentInChildren<EWCamera>();
+      _input = GetComponentInChildren<Input>();
       _player = GetComponentInChildren<Player>();
       _ui = GetComponentInChildren<UI>();
     }
 
     void ExposeFields() {
       Camera = _camera;
+      Input = _input;
       Player = _player;
       UI = _ui;
     }
