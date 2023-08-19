@@ -3,7 +3,7 @@ using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 namespace Elsewhere {
-  public class OnGlobalsAwake: MonoBehaviour {
+  public class OnEnsureUIReady: MonoBehaviour {
     [SerializeField] UnityEvent _event = new UnityEvent();
 
     public void AddListener(UnityAction listener) {

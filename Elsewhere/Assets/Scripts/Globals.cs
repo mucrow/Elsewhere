@@ -6,16 +6,21 @@ namespace Elsewhere {
     public static EWCamera Camera;
     public static Input Input;
     public static Player Player;
-    public static UI UI;
+    public static UI UI {
+      get {
+        _ui.EnsureReady();
+        return _ui;
+      }
+    }
 
     static Globals _instance;
+    static UI _ui;
 
     [SerializeField] GameObject _eventSystemPrefab;
 
     EWCamera _camera;
     Input _input;
     Player _player;
-    UI _ui;
 
     // AudioManager _audioManager;
     // GameManager _gameManager;
@@ -39,22 +44,14 @@ namespace Elsewhere {
       Instantiate(_eventSystemPrefab, transform);
 
       FindChildren();
-      ExposeFields();
       CallGlobalsAwakeLifecycleMethod();
     }
 
     void FindChildren() {
-      _camera = GetComponentInChildren<EWCamera>();
-      _input = GetComponentInChildren<Input>();
-      _player = GetComponentInChildren<Player>();
+      Camera = GetComponentInChildren<EWCamera>();
+      Input = GetComponentInChildren<Input>();
+      Player = GetComponentInChildren<Player>();
       _ui = GetComponentInChildren<UI>();
-    }
-
-    void ExposeFields() {
-      Camera = _camera;
-      Input = _input;
-      Player = _player;
-      UI = _ui;
     }
 
     void CallGlobalsAwakeLifecycleMethod() {
