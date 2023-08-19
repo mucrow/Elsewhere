@@ -2,7 +2,13 @@
 
 namespace Elsewhere {
   public class UI: MonoBehaviour {
+    public SolidColorOverlay SolidColorOverlay;
+
     bool _isWholeUIReady = false;
+
+    void Awake() {
+      SolidColorOverlay = GetComponentInChildren<SolidColorOverlay>();
+    }
 
     void Start() {
       EnsureReady();

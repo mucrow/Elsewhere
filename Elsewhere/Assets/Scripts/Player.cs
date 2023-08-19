@@ -17,10 +17,20 @@ namespace Elsewhere {
     }
 
     void Update() {
+      if (Time.timeScale <= 0f) {
+        return;
+      }
+
       float dt = Time.deltaTime;
       Globals.Input.Poll();
       HandleInteractInput();
       HandleMoveInput(dt);
+    }
+
+    public void SetPosition(Vector3 newPosition) {
+      _characterController.enabled = false;
+      transform.localPosition = newPosition;
+      _characterController.enabled = true;
     }
 
     void HandleMoveInput(float dt) {
