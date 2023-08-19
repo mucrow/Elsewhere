@@ -733,6 +733,14 @@ PrefabInstance:
       value: Scenes/Hugh/HughTestMap2
       objectReference: {fileID: 0}
     - target: {fileID: 636526268142548991, guid: e025441faa7795e45955f406daabfa3f, type: 3}
+      propertyPath: _destination.guid
+      value: a0a022f53f1df7b4b8527d930dc1d081
+      objectReference: {fileID: 0}
+    - target: {fileID: 636526268142548991, guid: e025441faa7795e45955f406daabfa3f, type: 3}
+      propertyPath: _destination.asset
+      value: 
+      objectReference: {fileID: 102900000, guid: a0a022f53f1df7b4b8527d930dc1d081, type: 3}
+    - target: {fileID: 636526268142548991, guid: e025441faa7795e45955f406daabfa3f, type: 3}
       propertyPath: _positionInDestination.x
       value: -6.36
       objectReference: {fileID: 0}
