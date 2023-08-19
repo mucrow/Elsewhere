@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Elsewhere.Player {
+namespace Elsewhere {
   public class Input: MonoBehaviour {
     public Vector2 Move { get; private set; }
     public bool Interact { get; private set; }

@@ -1,20 +1,19 @@
-﻿using Elsewhere.UI;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Elsewhere {
   public class Globals: MonoBehaviour {
     // These static fields are always set by the time Start() is called.
     public static EWCamera Camera;
-    public static Player.Player Player;
-    public static EWUI UI;
+    public static Player Player;
+    public static UI UI;
 
     static Globals _instance;
 
     [SerializeField] GameObject _eventSystemPrefab;
 
     EWCamera _camera;
-    Player.Player _player;
-    EWUI _ui;
+    Player _player;
+    UI _ui;
 
     // AudioManager _audioManager;
     // GameManager _gameManager;
@@ -44,8 +43,8 @@ namespace Elsewhere {
 
     void FindChildren() {
       _camera = GetComponentInChildren<EWCamera>();
-      _player = GetComponentInChildren<Player.Player>();
-      _ui = GetComponentInChildren<EWUI>();
+      _player = GetComponentInChildren<Player>();
+      _ui = GetComponentInChildren<UI>();
     }
 
     void ExposeFields() {

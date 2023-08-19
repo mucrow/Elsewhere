@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Elsewhere.Player {
+namespace Elsewhere {
   public class Player: MonoBehaviour {
     [SerializeField] float _moveSpeed = 6f;
     [SerializeField] float _moveAcceleration = 30f;

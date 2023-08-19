@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Elsewhere.Player {
+namespace Elsewhere {
   public class Interactor: MonoBehaviour {
     readonly HashSet<Interactable> _interactables = new HashSet<Interactable>();
 
