@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Hugh/HughTestMap2.unity
     guid: a0a022f53f1df7b4b8527d930dc1d081
+  - enabled: 1
+    path: Assets/Scenes/Hugh/TestMap2.unity
+    guid: e54278c65c7ca164c8dad57c6bd59062
   m_configObjects: {}

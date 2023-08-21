@@ -3213,7 +3213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hideMode: 0
-  _tweenTime: 0.3
+  _tweenTime: 1
 --- !u!222 &7787279060690403399
 CanvasRenderer:
   m_ObjectHideFlags: 0

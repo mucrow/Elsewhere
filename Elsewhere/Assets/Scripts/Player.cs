@@ -33,6 +33,11 @@ namespace Elsewhere {
       _characterController.enabled = true;
     }
 
+    /** Set the player's velocity to zero. Handy if you're about to teleport them. */
+    public void ZeroVelocity() {
+      _moveVelocity = Vector3.zero;
+    }
+
     void HandleMoveInput(float dt) {
       var moveInput = Globals.Input.Move;
 
