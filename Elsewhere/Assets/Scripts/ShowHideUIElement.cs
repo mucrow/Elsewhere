@@ -81,7 +81,6 @@ namespace Elsewhere {
         tween = TweenCanvasAlpha(1f, _tweenTime);
       }
       else {
-        var hiddenPosition = GetHiddenPosition();
         tween = LeanTween.move(_rectTransform, _initialPosition, _tweenTime);
       }
 
@@ -108,6 +107,7 @@ namespace Elsewhere {
       tween.setOnComplete(() => {
         tcs.SetResult(true);
       }).setIgnoreTimeScale(true);
+
       IsHidden = true;
       return tcs.Task;
     }
@@ -161,7 +161,13 @@ namespace Elsewhere {
     LTDescr ChangeCanvasAlphaHelper(float alpha, bool returnLTDescr, float time) {
       _canvasGroup.blocksRaycasts = alpha != 0;
       if (returnLTDescr) {
-        return LeanTween.alphaCanvas(_canvasGroup, alpha, time).setEaseOutCirc();
+        // TODO this code is disgusting
+        if (alpha == 0f) {
+          return LeanTween.alphaCanvas(_canvasGroup, alpha, time).setEaseInCirc();
+        }
+        else {
+          return LeanTween.alphaCanvas(_canvasGroup, alpha, time).setEaseOutCirc();
+        }
       }
       _canvasGroup.alpha = alpha;
       return null;
