@@ -7,6 +7,7 @@ namespace Elsewhere {
     [SerializeField] SceneReference _destination;
     [SerializeField] Vector3 _positionInDestination;
 
+    // TODO move this somewhere good
     public async void DoMapTransitionEH() {
       Time.timeScale = 0f;
       var ui = Globals.UI;
