@@ -33,12 +33,21 @@ namespace Elsewhere {
       return _camera;
     }
 
+    public Vector3 GetPosition() {
+      return transform.localPosition;
+    }
+
     public Vector3 GetCameraMountPosition() {
       return _camera.transform.localPosition;
     }
 
     public Quaternion GetCameraMountRotation() {
       return _camera.transform.localRotation;
+    }
+
+    /** Instantly set the position of the camera. */
+    public void SetPosition(Vector3 newPosition) {
+      transform.localPosition = newPosition;
     }
 
     public void SetCameraMountPosition(Vector3 mountPosition) {
