@@ -805,6 +805,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InteractableCube (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4232094533967607510, guid: 955c00d24924bc24398c5a1586ddb845, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a1525bdfef48567468244940c86f0e03, type: 2}
     - target: {fileID: 5056388476779856442, guid: 955c00d24924bc24398c5a1586ddb845, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3
@@ -1199,6 +1203,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InteractableCube
       objectReference: {fileID: 0}
+    - target: {fileID: 4232094533967607510, guid: 955c00d24924bc24398c5a1586ddb845, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a1525bdfef48567468244940c86f0e03, type: 2}
     - target: {fileID: 5056388476779856442, guid: 955c00d24924bc24398c5a1586ddb845, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3
