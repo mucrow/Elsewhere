@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WireframeShaderMaterial
+  m_Name: Wireframe
   m_Shader: {fileID: 4800000, guid: d1b31ccf62f2bb04c8d9cd08d3a02f75, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
